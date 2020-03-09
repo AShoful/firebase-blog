@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/firebase-blog/static/css/main.fd524a1b.chunk.css",
+    "main.js": "/firebase-blog/static/js/main.ffb56a4b.chunk.js",
+    "main.js.map": "/firebase-blog/static/js/main.ffb56a4b.chunk.js.map",
+    "runtime-main.js": "/firebase-blog/static/js/runtime-main.d6982f3c.js",
+    "runtime-main.js.map": "/firebase-blog/static/js/runtime-main.d6982f3c.js.map",
+    "static/js/2.fa1a72c2.chunk.js": "/firebase-blog/static/js/2.fa1a72c2.chunk.js",
+    "static/js/2.fa1a72c2.chunk.js.map": "/firebase-blog/static/js/2.fa1a72c2.chunk.js.map",
+    "index.html": "/firebase-blog/index.html",
+    "precache-manifest.7c57e5ba9c9c0eae9930880d861a83c4.js": "/firebase-blog/precache-manifest.7c57e5ba9c9c0eae9930880d861a83c4.js",
+    "service-worker.js": "/firebase-blog/service-worker.js",
+    "static/css/main.fd524a1b.chunk.css.map": "/firebase-blog/static/css/main.fd524a1b.chunk.css.map",
+    "static/js/2.fa1a72c2.chunk.js.LICENSE.txt": "/firebase-blog/static/js/2.fa1a72c2.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.d6982f3c.js",
+    "static/js/2.fa1a72c2.chunk.js",
+    "static/css/main.fd524a1b.chunk.css",
+    "static/js/main.ffb56a4b.chunk.js"
+  ]
+}
