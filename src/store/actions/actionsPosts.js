@@ -105,7 +105,6 @@ export function fetchPostItem(data) {
 export function fetchPatchItem(data, id) {
   return async (dispatch) => {
     dispatch(fetchItemsStart());
-    console.log('patch', id);
     await postApi.patch(data, id);
     try {
       dispatch(fetchSuccess());
