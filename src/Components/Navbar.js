@@ -32,9 +32,10 @@ ElevationScroll.propTypes = {
   window: PropTypes.func
 };
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   root: {
-    minHeight: 60
+    minHeight: 60,
+    marginBottom: theme.spacing(2)
   },
   right: {
     textAlign: 'right'

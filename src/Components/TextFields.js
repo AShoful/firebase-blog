@@ -15,15 +15,11 @@ import {
 
 const useStyles = makeStyles((theme) => {
   return {
-    root: {
-      marginTop: theme.spacing(1),
-      width: '80%'
-    },
     loading: {
       filter: 'blur(2px)'
     },
     CardMedia: {
-      marginBottom: 5,
+      marginBottom: theme.spacing(1),
       objectFit: 'cover'
     }
   };
@@ -86,7 +82,7 @@ export default function TextFields({
   };
 
   return (
-    <Container component="main" maxWidth="md" pt={3} className={classes.root}>
+    <Container component="main" maxWidth="md">
       <form
         className={loading ? classes.loading : null}
         noValidate
@@ -129,7 +125,7 @@ export default function TextFields({
           />
           <Container maxWidth="xs">
             {image && (
-              <Grid item xs={12}>
+              <Grid container>
                 <CardMedia
                   className={classes.CardMedia}
                   component="img"
@@ -139,7 +135,7 @@ export default function TextFields({
                 />
               </Grid>
             )}
-            <Grid item xs={12}>
+            <Grid container spacing={1}>
               <Grid item xs={12}>
                 <Tooltip title="Add your foto">
                   <Button
