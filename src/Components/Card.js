@@ -12,7 +12,7 @@ import {
   CardActionArea,
   CardMedia,
   CardContent,
-  Container,
+  Grid,
   Divider,
   Tooltip,
   Typography
@@ -21,25 +21,9 @@ import {
 import { noImage } from '../image/no-image';
 
 const useStyles = makeStyles({
-  root: {
-    width: '80%',
-    margin: '5px auto',
-    display: 'flex',
-    justifyContent: 'space-between'
-  },
-  container: {
-    display: 'flex',
-    justifyContent: 'space-around'
-  },
-  area: {
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'space-between',
-    width: '70%'
-  },
   CardMedia: {
-    width: 180,
-    marginBottom: 5,
+    width: '100%',
+    margin: 5,
     height: 150,
     objectFit: 'cover',
     borderRadius: 10
@@ -61,17 +45,19 @@ export default function ImgMediaCard({ item, remove }) {
   };
 
   return (
-    <Container className={classes.container}>
-      <Card className={classes.root}>
-        <CardMedia
-          className={classes.CardMedia}
-          component="img"
-          alt="Contemplative Reptile"
-          image={image}
-          title="Contemplative Reptile"
-        />
-        <div className={classes.area}>
-          <CardActionArea onClick={() => setIsAll(!isAll)}>
+    <Card>
+      <Grid container spacing={2}>
+        <Grid item xs={12} sm={3}>
+          <CardMedia
+            className={classes.CardMedia}
+            component="img"
+            alt="Contemplative Reptile"
+            image={image}
+            title="Contemplative Reptile"
+          />
+        </Grid>
+        <Grid item xs={12} sm={9}>
+          <CardActionArea onClick={() => setIsAll(!isAll)} item xs={12} sm={9}>
             <CardContent>
               <Typography gutterBottom variant="subtitle1" component="h4">
                 {title}
@@ -93,30 +79,32 @@ export default function ImgMediaCard({ item, remove }) {
             </CardContent>
           </CardActionArea>
           {name === author && (
-            <CardActions className={classes.container}>
-              <Button
-                size="small"
-                color="primary"
-                variant="outlined"
-                component={Link}
-                to={`/post/edit/${id}`}
-              >
-                edit
-              </Button>
-              <Button
-                size="small"
-                color="secondary"
-                variant="outlined"
-                onClick={handleClickDelete}
-              >
-                delete
-              </Button>
+            <CardActions>
+              <Grid container justify="space-between">
+                <Button
+                  size="small"
+                  color="primary"
+                  variant="outlined"
+                  component={Link}
+                  to={`/post/edit/${id}`}
+                >
+                  edit
+                </Button>
+                <Button
+                  size="small"
+                  color="secondary"
+                  variant="outlined"
+                  onClick={handleClickDelete}
+                >
+                  delete
+                </Button>
+              </Grid>
             </CardActions>
           )}
-        </div>
-        <Divider />
-      </Card>
-    </Container>
+        </Grid>
+      </Grid>
+      <Divider />
+    </Card>
   );
 }
 

@@ -3,6 +3,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
+import { Container } from '@material-ui/core';
 import Card from '../Components/Card';
 import Sceleton from '../Components/Sceleton';
 
@@ -15,7 +16,7 @@ const CardsContainer = (props) => {
   }, [fetchPosts]);
 
   return (
-    <>
+    <Container component="main">
       {!isLoading ? (
         cards.map((item) => (
           // check
@@ -24,7 +25,7 @@ const CardsContainer = (props) => {
       ) : (
         <Sceleton />
       )}
-    </>
+    </Container>
   );
 };
 
