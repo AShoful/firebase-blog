@@ -46,7 +46,7 @@ const useStyles = makeStyles((theme) => ({
 const Skeleton = () => {
   const classes = useStyles();
 
-  const content = Array.from({ length: 5 }).map((item, index) => (
+  const content = Array.from({ length: 3 }).map((item, index) => (
     <div className={classes.card} key={index}>
       <div className={classes.cover} />
       <div className={classes.cardContent}>

@@ -15,6 +15,6 @@ export default {
   },
   typography: {
     useNextVariants: true,
-    fontSize: 8
+    fontSize: 10
   }
 };

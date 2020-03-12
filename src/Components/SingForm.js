@@ -143,7 +143,9 @@ export default function SignForm(props) {
             variant="contained"
             color="primary"
             disabled={
-              !validator.validate(email) || (!isLogin && password.length < 6)
+              !validator.validate(email) ||
+              !password ||
+              (!isLogin && password.length < 6)
             }
             className={classes.submit}
             onClick={(e) => handleSubmit(email, password, isLogin, e)}
@@ -171,7 +173,7 @@ SignForm.propTypes = {
   linkName: PropTypes.string,
   link: PropTypes.string,
   isLogin: PropTypes.bool,
-  error: PropTypes.string,
+  error: PropTypes.bool,
   loading: PropTypes.bool,
   auth: PropTypes.func
 };
@@ -181,7 +183,7 @@ SignForm.defaultProps = {
   linkName: 'linkName',
   link: '/',
   isLogin: false,
-  error: '',
+  error: false,
   loading: false,
   auth: () => {}
 };

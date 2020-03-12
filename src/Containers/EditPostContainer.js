@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 
 import TextFields from '../Components/TextFields';
 
@@ -19,7 +20,11 @@ const EditPostContainer = ({
     }
   }, [getItem, post, postId]);
 
-  return (
+  const checkName = localStorage.getItem('name');
+
+  return !checkName ? (
+    <Redirect to="/" />
+  ) : (
     <TextFields
       handleSubmitFetch={fetchPatchItem}
       post={post}

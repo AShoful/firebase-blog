@@ -1,3 +1,4 @@
+/* eslint-disable consistent-return */
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
@@ -50,12 +51,15 @@ export default function ImgMediaCard({ item, remove }) {
   const [isAll, setIsAll] = useState(false);
 
   const { id, title, discription, image = noImage, author, date } = item;
-
+  const name = localStorage.getItem('name');
   const handleClickDelete = () => {
+    const checkName = localStorage.getItem('name');
+    if (!checkName) {
+      return global.alert('Время авторизации истекло');
+    }
     remove(id);
   };
 
-  const name = localStorage.getItem('name');
   return (
     <Container className={classes.container}>
       <Card className={classes.root}>

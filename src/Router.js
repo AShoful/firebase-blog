@@ -32,8 +32,6 @@ const Router = () => {
       <Route path="/addpost" component={AddPostContainer} />
       <Route path="/logout" component={Logout} />
       <Route path="/post/edit/:id" component={EditPostContainer} />
-      {/* <Route path="/post/:id" component={FullPost} />
-          <Route path="/" exact component={PostsList} />   */}
       <Redirect to="/" />
     </Switch>
   );
