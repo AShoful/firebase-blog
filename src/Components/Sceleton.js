@@ -1,6 +1,7 @@
 /* eslint-disable react/no-array-index-key */
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
+import Container from '@material-ui/core/Container';
 
 const useStyles = makeStyles((theme) => ({
   card: {
@@ -12,10 +13,6 @@ const useStyles = makeStyles((theme) => ({
     width: '100%',
     flexDirection: 'column',
     padding: 25
-  },
-  cover: {
-    minWidth: 200,
-    objectFit: 'cover'
   },
   handle: {
     width: 60,
@@ -31,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
   },
   fullLine: {
     height: 15,
-    width: '90%',
+    width: '100%',
     backgroundColor: 'rgba(0,0,0, 0.2)',
     marginBottom: 10
   },
@@ -48,7 +45,6 @@ const Skeleton = () => {
 
   const content = Array.from({ length: 3 }).map((item, index) => (
     <div className={classes.card} key={index}>
-      <div className={classes.cover} />
       <div className={classes.cardContent}>
         <div className={classes.handle} />
         <div className={classes.date} />
@@ -59,7 +55,7 @@ const Skeleton = () => {
     </div>
   ));
 
-  return <>{content}</>;
+  return <Container>{content}</Container>;
 };
 
 export default Skeleton;

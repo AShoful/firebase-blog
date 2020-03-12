@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import {
   useScrollTrigger,
   AppBar,
+  Grid,
   Tooltip,
   Toolbar,
   Button,
@@ -33,11 +34,10 @@ ElevationScroll.propTypes = {
 
 const useStyles = makeStyles(() => ({
   root: {
-    maxHeight: 60
+    minHeight: 60
   },
-  top: {
-    display: 'flex',
-    justifyContent: 'space-between'
+  right: {
+    textAlign: 'right'
   }
 }));
 
@@ -48,38 +48,38 @@ const Navbar = (props) => {
     <ElevationScroll {...props}>
       <AppBar position="sticky" className={classes.root}>
         <Container>
-          <Toolbar className={classes.top}>
+          <Toolbar>
             {authenticated ? (
-              <>
-                <div>
+              <Grid container>
+                <Grid item xs={8}>
                   <Button color="inherit" component={Link} to="/">
                     Home
                   </Button>
                   <Button color="inherit" component={Link} to="/addpost">
                     Addpost
                   </Button>
-                </div>
-                <div>
+                </Grid>
+                <Grid item xs={4} className={classes.right}>
                   <Tooltip title="Logout">
                     <Button color="inherit" component={Link} to="/logout">
-                      {authenticated}
+                      {authenticated.split('@')[0]}
                     </Button>
                   </Tooltip>
-                </div>
-              </>
+                </Grid>
+              </Grid>
             ) : (
-              <>
-                <div>
+              <Grid container>
+                <Grid item xs={8}>
                   <Button color="inherit" component={Link} to="/">
                     Home
                   </Button>
-                </div>
-                <div>
+                </Grid>
+                <Grid item xs={4} className={classes.right}>
                   <Button color="inherit" component={Link} to="/registr">
                     Signup
                   </Button>
-                </div>
-              </>
+                </Grid>
+              </Grid>
             )}
           </Toolbar>
         </Container>
