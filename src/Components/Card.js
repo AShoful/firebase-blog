@@ -57,7 +57,7 @@ export default function ImgMediaCard({ item, remove }) {
           />
         </Grid>
         <Grid item xs={12} sm={9}>
-          <CardActionArea onClick={() => setIsAll(!isAll)} item xs={12} sm={9}>
+          <CardActionArea onClick={() => setIsAll(!isAll)}>
             <CardContent>
               <Typography gutterBottom variant="subtitle1" component="h4">
                 {title}

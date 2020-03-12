@@ -20,7 +20,7 @@ const CardsContainer = (props) => {
       {!isLoading ? (
         cards.map((item) => (
           // check
-          <Card key={item.id || 1} item={item} remove={fetchRemove} />
+          <Card key={item.id || '1'} item={item} remove={fetchRemove} />
         ))
       ) : (
         <Sceleton />
