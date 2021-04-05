@@ -8,6 +8,9 @@ import { Button, Grid, Container, TextField } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => {
   return {
+    root: {
+      paddingTop: 40
+    },
     loading: {
       filter: 'blur(2px)'
     },
@@ -36,13 +39,12 @@ export default function TextFields({
     }
   }, [post]);
 
-  const handleSubmit = (data, postId, e) => {
-    e.preventDefault();
+  const handleSubmit = (data, postId) => {
     handleSubmitFetch(data, postId);
   };
 
   return (
-    <Container component="main" maxWidth="md">
+    <Container component="main" maxWidth="md" className={classes.root}>
       <form
         className={loading ? classes.loading : null}
         noValidate
@@ -53,22 +55,16 @@ export default function TextFields({
             <TextField
               variant="outlined"
               label="Title"
-              name="title"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
-              required
               fullWidth
-              id="title"
             />
           </Grid>
           <Grid item xs={12}>
             <TextField
               variant="outlined"
-              required
               fullWidth
-              id="discription"
-              label="Discription"
-              name="discription"
+              label="Body"
               multiline
               rows="5"
               onChange={(e) => setBody(e.target.value)}
@@ -78,18 +74,16 @@ export default function TextFields({
           <Container maxWidth="xs">
             <Grid item xs={12}>
               <Button
-                type="submit"
                 variant="contained"
                 fullWidth
                 color="primary"
                 className={classes.submit}
                 disabled={!title || !body}
-                onClick={(e) => handleSubmit(data, postId, e)}
+                onClick={() => handleSubmit(data, postId)}
               >
                 Send
               </Button>
             </Grid>
-            {/* </Grid> */}
           </Container>
         </Grid>
       </form>

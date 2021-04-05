@@ -17,10 +17,8 @@ const CardsContainer = () => {
   const removeItem = (id) => dispatch(fetchRemoveItem(id));
 
   React.useEffect(() => {
-    if (!posts.length) {
-      dispatch(fetchItems());
-    }
-  }, [dispatch, posts.length]);
+    dispatch(fetchItems());
+  }, [dispatch]);
 
   if (error) {
     return <Error error={error} />;

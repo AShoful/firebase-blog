@@ -3,57 +3,60 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import {
-  Button,
-  Card,
-  CardActions,
+  Container,
+  IconButton,
   Grid,
   Divider,
   Typography
 } from '@material-ui/core';
+import DeleteIcon from '@material-ui/icons/Delete';
+import EditIcon from '@material-ui/icons/Edit';
+
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles(() => ({
+  root: {
+    minHeight: 60
+  },
+  icons: {
+    display: 'flex',
+    justifyContent: 'space-between'
+  },
+  link: {
+    textDecoration: 'none'
+  }
+}));
 
 export default function PostsList({ item, remove }) {
   const { id, title } = item;
   const handleClickDelete = () => {
     remove(id);
   };
-
+  const classes = useStyles();
   return (
-    <Card>
-      <Grid container spacing={2}>
-        <Grid item xs={12} sm={12}>
+    <Container component="main" maxWidth="md" className={classes.root}>
+      <Grid container spacing={2} justify="space-between">
+        <Grid item xs={12} sm={10}>
           <Typography
-            gutterBottom
+            className={classes.link}
             component={Link}
             to={`/post/${id}`}
             variant="subtitle1"
           >
             {title}
           </Typography>
-          <CardActions>
-            <Grid container justify="space-between">
-              <Button
-                size="small"
-                color="primary"
-                variant="outlined"
-                component={Link}
-                to={`/post/edit/${id}`}
-              >
-                edit
-              </Button>
-              <Button
-                size="small"
-                color="secondary"
-                variant="outlined"
-                onClick={handleClickDelete}
-              >
-                delete
-              </Button>
-            </Grid>
-          </CardActions>
+        </Grid>
+        <Grid item xs={12} sm={2} className={classes.icons}>
+          <IconButton component={Link} to={`/post/edit/${id}`}>
+            <EditIcon fontSize="small" />
+          </IconButton>
+          <IconButton onClick={handleClickDelete}>
+            <DeleteIcon fontSize="small" />
+          </IconButton>
         </Grid>
       </Grid>
       <Divider />
-    </Card>
+    </Container>
   );
 }
 

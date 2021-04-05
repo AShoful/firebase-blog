@@ -4,6 +4,7 @@ export const FETCH_ITEM_SUCCESS = 'FETCH_ITEM_SUCCESS';
 export const FETCH_ITEMS_ERROR = 'FETCH_ITEMS_ERROR';
 export const FETCH_ITEM_REMOVE = 'FETCH_ITEM_REMOVE';
 export const FETCH_SUCCESS = 'FETCH_SUCCESS';
+export const ADD_COMMENT = 'ADD_COMMENT';
 export const CLEAR_ITEM = 'CLEAR_ITEM';
 export const SHOW_ERROR = 'SHOW_ERROR';
 export const SHOW_LOADER = 'SHOW_LOADER';

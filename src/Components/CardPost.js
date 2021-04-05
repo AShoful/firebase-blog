@@ -1,78 +1,106 @@
 /* eslint-disable react/no-array-index-key */
 /* eslint-disable consistent-return */
-import React from 'react';
+import React, { useState, Fragment } from 'react';
 import PropTypes from 'prop-types';
 
 import { makeStyles } from '@material-ui/core/styles';
 
 import {
-  Card,
-  CardContent,
+  Container,
   Grid,
   Divider,
-  Typography
+  Typography,
+  TextField,
+  IconButton
 } from '@material-ui/core';
 
+import SendIcon from '@material-ui/icons/Send';
+
 const useStyles = makeStyles((theme) => ({
-  CardMedia: {
-    width: '95%',
-    marginTop: theme.spacing(1),
-    objectFit: 'contain',
-    borderRadius: '50%',
-    border: '3px solid rgba(0,0,0,0.2)',
-    marginBottom: theme.spacing(4)
-  },
   name: {
     color: theme.palette.primary.main,
     fontSize: 36,
     marginBottom: 0
   },
-  bio: {
-    fontSize: 16
+  text: {
+    fontSize: 16,
+    padding: 10
   },
-  button: {
-    fontSize: 12,
-    margin: theme.spacing(1),
-    fontWeight: 600
+  form: {
+    paddingBottom: 20
+  },
+  input: {
+    width: '80%'
   }
 }));
 
-export default function CardPost({ post }) {
+export default function CardPost({ post, addComment }) {
+  const [comment, setComment] = useState('');
   const classes = useStyles();
+  const { title, body, comments, id } = post;
 
-  console.log(post);
-  const { title, body, comments } = post;
-  console.log(comments);
+  const data = {
+    body: comment,
+    postId: id
+  };
+
   return (
-    <Card>
+    <Container component="main" maxWidth="md" className={classes.root}>
       <Grid container>
         <Grid item xs={12} sm={12}>
-          <CardContent>
-            <Typography
-              className={classes.name}
-              gutterBottom
-              variant="subtitle1"
-              component="h4"
+          <Typography
+            className={classes.name}
+            gutterBottom
+            variant="subtitle1"
+            component="h4"
+          >
+            {title}
+          </Typography>
+          <Typography
+            className={classes.text}
+            variant="subtitle2"
+            color="textSecondary"
+            component="p"
+          >
+            {body}
+          </Typography>
+          <Grid container className={classes.form} justify="space-between">
+            <TextField
+              className={classes.input}
+              label="add comment"
+              value={comment}
+              onChange={(e) => setComment(e.target.value)}
+            />
+            <IconButton
+              color="primary"
+              disabled={!comment}
+              onClick={() => addComment(data)}
             >
-              {title}
-            </Typography>
-            <Typography
-              className={classes.bio}
-              variant="subtitle2"
-              color="textSecondary"
-              component="p"
-            >
-              {body}
-            </Typography>
-          </CardContent>
+              <SendIcon />
+            </IconButton>
+          </Grid>
+          {comments.map((item, i) => (
+            <Fragment key={i}>
+              <Typography
+                className={classes.text}
+                variant="subtitle2"
+                color="textSecondary"
+                component="p"
+              >
+                {item.body}
+              </Typography>
+              <Divider />
+            </Fragment>
+          ))}
         </Grid>
       </Grid>
       <Divider />
-    </Card>
+    </Container>
   );
 }
 
 CardPost.propTypes = {
+  addComment: PropTypes.func,
   post: PropTypes.shape({
     title: PropTypes.string,
     comments: PropTypes.array,
@@ -82,6 +110,7 @@ CardPost.propTypes = {
 };
 
 CardPost.defaultProps = {
+  addComment: () => {},
   post: {
     title: '',
     body: '',
