@@ -35,7 +35,8 @@ ElevationScroll.propTypes = {
 const useStyles = makeStyles((theme) => ({
   root: {
     minHeight: 60,
-    marginBottom: theme.spacing(2)
+    marginBottom: theme.spacing(2),
+    padding: 0
   },
   right: {
     textAlign: 'right'
@@ -46,8 +47,8 @@ const Navbar = (props) => {
   const { authenticated } = props;
   const classes = useStyles();
   return (
-    <ElevationScroll {...props}>
-      <AppBar position="sticky" className={classes.root}>
+    <ElevationScroll {...props} className={classes.root}>
+      <AppBar position="sticky">
         <Container>
           <Toolbar>
             {authenticated ? (

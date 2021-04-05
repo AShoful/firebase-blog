@@ -14,7 +14,8 @@ export default {
     }
   },
   typography: {
+    htmlFontSize: 16,
     useNextVariants: true,
-    fontSize: 9
+    fontSize: 12
   }
 };
