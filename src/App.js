@@ -3,7 +3,7 @@ import React from 'react';
 import { ThemeProvider as MuiThemeProvider } from '@material-ui/core/styles';
 import createMuiTheme from '@material-ui/core/styles/createMuiTheme';
 
-import NavbarContainer from './Containers/NavbarContainer';
+import Navbar from './Components/Navbar';
 import Router from './Router';
 
 import './App.css';
@@ -15,7 +15,7 @@ function App() {
   return (
     <div className="App">
       <MuiThemeProvider theme={theme}>
-        <NavbarContainer />
+        <Navbar />
         <Router />
       </MuiThemeProvider>
     </div>

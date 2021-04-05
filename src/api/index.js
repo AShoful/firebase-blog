@@ -1,9 +1,9 @@
 import axios from '../axios';
 
 export default {
-  get: () => axios.get(`/posts.json`),
-  getItem: (id) => axios.get(`/posts/${id}.json`),
-  remove: (id) => axios.delete(`/posts/${id}.json`),
-  post: (data) => axios.post('/posts.json', data),
-  patch: (data, id) => axios.patch(`/posts/${id}.json`, data)
+  get: () => axios.get(`/posts`),
+  getItem: (id) => axios.get(`/posts/${id}?_embed=comments`),
+  remove: (id) => axios.delete(`/posts/${id}`),
+  post: (data) => axios.post('/posts', data),
+  put: (data, id) => axios.put(`/posts/${id}`, data)
 };

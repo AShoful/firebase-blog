@@ -1,26 +1,37 @@
 /* eslint-disable react/forbid-prop-types */
 import React from 'react';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
+import { useSelector, useDispatch } from 'react-redux';
 
 import { Container } from '@material-ui/core';
-import Card from '../Components/Card';
+import PostList from '../Components/PostsList';
 import Sceleton from '../Components/Sceleton';
+import Error from '../Components/Error';
 
 import { fetchItems, fetchRemoveItem } from '../store/actions/actionsPosts';
 
-const CardsContainer = (props) => {
-  const { fetchPosts, cards, isLoading, fetchRemove } = props;
+const CardsContainer = () => {
+  const posts = useSelector((state) => state.posts);
+  const { loading, error } = useSelector((state) => state.app);
+  const dispatch = useDispatch();
+
+  const removeItem = (id) => dispatch(fetchRemoveItem(id));
+
   React.useEffect(() => {
-    fetchPosts();
-  }, [fetchPosts]);
+    if (!posts.length) {
+      dispatch(fetchItems());
+    }
+  }, [dispatch, posts.length]);
+
+  if (error) {
+    return <Error error={error} />;
+  }
 
   return (
     <Container component="main">
-      {!isLoading ? (
-        cards.map((item) => (
+      {!loading ? (
+        posts.map((item) => (
           // check
-          <Card key={item.id || '1'} item={item} remove={fetchRemove} />
+          <PostList key={item.id} item={item} remove={removeItem} />
         ))
       ) : (
         <Sceleton />
@@ -29,27 +40,4 @@ const CardsContainer = (props) => {
   );
 };
 
-const mapStateToProps = (state) => ({
-  cards: state.posts.items,
-  isLoading: state.posts.loading
-});
-const mapDispatchToProps = (dispatch) => ({
-  fetchPosts: () => dispatch(fetchItems()),
-  fetchRemove: (id) => dispatch(fetchRemoveItem(id))
-});
-
-CardsContainer.propTypes = {
-  fetchPosts: PropTypes.func,
-  cards: PropTypes.array,
-  isLoading: PropTypes.bool,
-  fetchRemove: PropTypes.func
-};
-
-CardsContainer.defaultProps = {
-  fetchPosts: () => {},
-  cards: [],
-  isLoading: false,
-  fetchRemove: () => {}
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(CardsContainer);
+export default CardsContainer;

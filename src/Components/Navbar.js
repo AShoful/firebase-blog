@@ -6,7 +6,6 @@ import {
   useScrollTrigger,
   AppBar,
   Grid,
-  Tooltip,
   Toolbar,
   Button,
   Container
@@ -38,64 +37,35 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: theme.spacing(2),
     padding: 0
   },
-  right: {
-    textAlign: 'right'
+  main: {
+    display: 'flex',
+    justifyContent: 'space-between'
   }
 }));
 
 const Navbar = (props) => {
-  const { authenticated } = props;
+  // const { authenticated } = props;
   const classes = useStyles();
   return (
     <ElevationScroll {...props} className={classes.root}>
       <AppBar position="sticky">
         <Container>
           <Toolbar>
-            {authenticated ? (
-              <Grid container>
-                <Grid item xs={8}>
-                  <Button color="inherit" component={Link} to="/">
-                    Home
-                  </Button>
-                  <Button color="inherit" component={Link} to="/addpost">
-                    Addpost
-                  </Button>
-                </Grid>
-                <Grid item xs={4} className={classes.right}>
-                  <Tooltip title="Logout">
-                    <Button color="inherit" component={Link} to="/logout">
-                      {authenticated.split('@')[0]}
-                    </Button>
-                  </Tooltip>
-                </Grid>
+            <Grid container>
+              <Grid item xs={12} className={classes.main}>
+                <Button color="inherit" component={Link} to="/">
+                  Home
+                </Button>
+                <Button color="inherit" component={Link} to="/addpost">
+                  Addpost
+                </Button>
               </Grid>
-            ) : (
-              <Grid container>
-                <Grid item xs={8}>
-                  <Button color="inherit" component={Link} to="/">
-                    Home
-                  </Button>
-                </Grid>
-                <Grid item xs={4} className={classes.right}>
-                  <Button color="inherit" component={Link} to="/registr">
-                    Signup
-                  </Button>
-                </Grid>
-              </Grid>
-            )}
+            </Grid>
           </Toolbar>
         </Container>
       </AppBar>
     </ElevationScroll>
   );
-};
-
-Navbar.propTypes = {
-  authenticated: PropTypes.string
-};
-
-Navbar.defaultProps = {
-  authenticated: 'anonim'
 };
 
 export default Navbar;
