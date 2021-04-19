@@ -2,17 +2,16 @@
 /* eslint-disable no-use-before-define */
 import postApi from '../../api';
 import {
-  FETCH_ITEMS_START,
   FETCH_ITEM_SUCCESS,
   FETCH_ITEM_REMOVE,
-  FETCH_ITEMS_SUCCESS,
-  FETCH_ITEMS_ERROR,
-  FETCH_SUCCESS
+  FETCH_ITEMS_SUCCESS
 } from './actionTypes';
+import { showError, showLoader, hideError, hideLoader } from './actionsApp';
 
 export function fetchItems(page) {
   return async (dispatch) => {
-    dispatch(fetchItemsStart());
+    dispatch(showLoader());
+    dispatch(hideError());
     const res = await postApi.get(page);
     try {
       const cards = Object.entries(res.data).map((item) => ({
@@ -20,44 +19,34 @@ export function fetchItems(page) {
         id: item[0]
       }));
       dispatch(fetchItemsSuccess(cards));
+      dispatch(hideLoader());
     } catch (error) {
-      dispatch(fetchItemsError(error));
+      dispatch(showError(error.message));
+      dispatch(hideLoader());
     }
-  };
-}
-
-export function fetchItemsStart() {
-  return {
-    type: FETCH_ITEMS_START
   };
 }
 
 export function fetchItemsSuccess(data) {
   return {
     type: FETCH_ITEMS_SUCCESS,
-    items: data,
-    loading: false
-  };
-}
-
-export function fetchItemsError(error) {
-  return {
-    type: FETCH_ITEMS_ERROR,
-    error,
-    loading: false
+    data
   };
 }
 
 export function fetchItem(id) {
   return async (dispatch) => {
-    dispatch(fetchItemsStart());
+    dispatch(showLoader());
+    dispatch(hideError());
     const res = await postApi.getItem(id);
     try {
       const post = res.data;
       post.id = id;
       dispatch(fetchItemSuccess(post));
+      dispatch(hideLoader());
     } catch (error) {
-      dispatch(fetchItemsError(error));
+      dispatch(showError(error.message));
+      dispatch(hideLoader());
     }
   };
 }
@@ -65,18 +54,22 @@ export function fetchItem(id) {
 export function fetchItemSuccess(post) {
   return {
     type: FETCH_ITEM_SUCCESS,
-    payload: post
+    post
   };
 }
 
 export function fetchRemoveItem(id) {
   return async (dispatch) => {
+    dispatch(showLoader());
+    dispatch(hideError());
     await postApi.remove(id);
     try {
       dispatch(removeItem(id));
       window.alert('Пост успешно удален!');
+      dispatch(hideLoader());
     } catch (error) {
-      dispatch(fetchItemsError(error));
+      dispatch(showError(error.message));
+      dispatch(hideLoader());
     }
   };
 }
@@ -90,13 +83,15 @@ export function removeItem(id) {
 
 export function fetchPostItem(data) {
   return async (dispatch) => {
-    dispatch(fetchItemsStart());
+    dispatch(showLoader());
+    dispatch(hideError());
     await postApi.post(data);
     try {
-      dispatch(fetchSuccess());
       window.alert('Пост успешно сохранен!');
+      dispatch(hideLoader());
     } catch (error) {
-      dispatch(fetchItemsError(error));
+      dispatch(showError(error.message));
+      dispatch(hideLoader());
       window.alert('База данных не доступна, попробуйте позже');
     }
   };
@@ -104,20 +99,16 @@ export function fetchPostItem(data) {
 
 export function fetchPatchItem(data, id) {
   return async (dispatch) => {
-    dispatch(fetchItemsStart());
+    dispatch(showLoader());
+    dispatch(hideError());
     await postApi.patch(data, id);
     try {
-      dispatch(fetchSuccess());
       window.alert('Пост успешно изменен!');
+      dispatch(hideLoader());
     } catch (error) {
-      dispatch(fetchItemsError(error));
+      dispatch(showError(error.message));
+      dispatch(hideLoader());
       window.alert('База данных не доступна, попробуйте позже');
     }
-  };
-}
-
-function fetchSuccess() {
-  return {
-    type: FETCH_SUCCESS
   };
 }
