@@ -8,3 +8,7 @@ export const AUTH_SUCCESS = 'AUTH_SUCCESS';
 export const AUTH_ERROR = 'AUTH_ERROR';
 export const AUTH_LOGOUT = 'AUTH_LOGOUT';
 export const AUTH_START = 'AUTH_START';
+export const SHOW_ERROR = 'SHOW_ERROR';
+export const SHOW_LOADER = 'SHOW_LOADER';
+export const HIDE_ERROR = 'HIDE_ERROR';
+export const HIDE_LOADER = 'HIDE_LOADER';

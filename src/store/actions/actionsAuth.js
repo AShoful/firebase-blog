@@ -1,15 +1,12 @@
 /* eslint-disable no-use-before-define */
 import axios from 'axios';
-import {
-  AUTH_SUCCESS,
-  AUTH_LOGOUT,
-  AUTH_ERROR,
-  AUTH_START
-} from './actionTypes';
+import { AUTH_SUCCESS, AUTH_LOGOUT } from './actionTypes';
+import { showError, showLoader, hideError, hideLoader } from './actionsApp';
 
 export function auth({ email, password, isLogin }) {
   return async (dispatch) => {
-    dispatch(authStart());
+    dispatch(showLoader());
+    dispatch(hideError());
     const authData = {
       email,
       password,
@@ -34,8 +31,11 @@ export function auth({ email, password, isLogin }) {
 
       dispatch(authSuccess(idToken, name));
       dispatch(autoLogout(expiresIn));
+      dispatch(hideLoader());
     } catch (e) {
-      dispatch(authError());
+      global.alert(e.message);
+      dispatch(showError(e.message));
+      dispatch(hideLoader());
     }
   };
 }
@@ -51,12 +51,6 @@ export function authSuccess(token, name) {
 export function autoLogout(time) {
   return (dispatch) => {
     setTimeout(() => dispatch(logout()), time * 1000);
-  };
-}
-
-export function authStart() {
-  return {
-    type: AUTH_START
   };
 }
 
@@ -88,11 +82,5 @@ export function autoLogin() {
         );
       }
     }
-  };
-}
-
-export function authError() {
-  return {
-    type: AUTH_ERROR
   };
 }
