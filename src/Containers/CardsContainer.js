@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import { Container } from '@material-ui/core';
 import Card from '../Components/Card';
+import Error from '../Components/Error';
 import Sceleton from '../Components/Sceleton';
 
 import { fetchItems, fetchRemoveItem } from '../store/actions/actionsPosts';
@@ -11,11 +12,15 @@ import { fetchItems, fetchRemoveItem } from '../store/actions/actionsPosts';
 const CardsContainer = () => {
   const dispatch = useDispatch();
   const posts = useSelector((state) => state.posts);
-  const { loading } = useSelector((state) => state.app);
+  const { loading, error } = useSelector((state) => state.app);
 
   React.useEffect(() => {
     dispatch(fetchItems());
   }, [dispatch]);
+
+  if (error) {
+    return <Error error={error} />;
+  }
 
   return (
     <Container component="main">

@@ -4,13 +4,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Redirect, useParams } from 'react-router-dom';
 
 import TextFields from '../Components/TextFields';
+import Error from '../Components/Error';
 
 import { fetchPatchItem, fetchItem } from '../store/actions/actionsPosts';
 
 const EditPostContainer = () => {
   const dispatch = useDispatch();
   const { id } = useParams();
-  const { loading } = useSelector((state) => state.app);
+  const { loading, error } = useSelector((state) => state.app);
   const post = useSelector((state) => state.posts).filter(
     (post) => post.id === id
   )[0];
@@ -20,6 +21,10 @@ const EditPostContainer = () => {
       dispatch(fetchItem(id));
     }
   }, [post, id, dispatch]);
+
+  if (error) {
+    return <Error error={error} />;
+  }
 
   const checkName = localStorage.getItem('name');
 
