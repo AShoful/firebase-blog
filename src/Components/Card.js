@@ -51,9 +51,8 @@ export default function ImgMediaCard({ item, remove }) {
           <CardMedia
             className={classes.CardMedia}
             component="img"
-            alt="Contemplative Reptile"
+            alt="img"
             image={image}
-            title="Contemplative Reptile"
           />
         </Grid>
         <Grid item xs={12} sm={9}>

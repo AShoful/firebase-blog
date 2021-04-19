@@ -49,11 +49,6 @@ export default function TextFields({
     }
   }, [post]);
 
-  const handleSubmit = (data, e) => {
-    e.preventDefault();
-    handleSubmitFetch(data, postId);
-  };
-
   const handleImageChange = (input) => {
     const image = input.files[0];
     if (image.size < 200000) {
@@ -148,13 +143,13 @@ export default function TextFields({
               </Grid>
               <Grid item xs={12}>
                 <Button
-                  type="submit"
+                  type="button"
                   variant="contained"
                   fullWidth
                   color="primary"
                   className={classes.submit}
                   disabled={!title || !discription || !author}
-                  onClick={(e) => handleSubmit(data, e)}
+                  onClick={() => handleSubmitFetch(data, postId)}
                 >
                   Send
                 </Button>
