@@ -1,6 +1,5 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
+import { useDispatch, useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 
 import SignForm from '../Components/SingForm';
@@ -8,24 +7,12 @@ import SignForm from '../Components/SingForm';
 import { auth } from '../store/actions/actionsAuth';
 
 const SingFormContainer = (props) => {
-  return props.authenticated ? <Redirect to="/" /> : <SignForm {...props} />;
+  const dispatch = useDispatch();
+  const { authenticated } = useSelector((state) => state.auth);
+  const { error, loading } = useSelector((state) => state.app);
+  const authorization = (data) => dispatch(auth(data));
+  const newProps = { ...props, error, loading, authorization };
+  return authenticated ? <Redirect to="/" /> : <SignForm {...newProps} />;
 };
 
-const mapStateToProps = (state) => ({
-  authenticated: state.auth.authenticated,
-  error: state.auth.error,
-  loading: state.auth.loading
-});
-const mapDispatchToProps = (dispatch) => ({
-  auth: (data) => dispatch(auth(data))
-});
-
-SingFormContainer.propTypes = {
-  authenticated: PropTypes.string
-};
-
-SingFormContainer.defaultProps = {
-  authenticated: ''
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(SingFormContainer);
+export default SingFormContainer;

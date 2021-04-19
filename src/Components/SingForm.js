@@ -59,10 +59,18 @@ export default function SignForm(props) {
   const [touch, setTouch] = useState(false);
 
   const classes = useStyles();
-  const { name, linkName, link, isLogin, auth, error, loading } = props;
+  const {
+    name,
+    linkName,
+    link,
+    isLogin,
+    authorization,
+    error,
+    loading
+  } = props;
   const handleSubmit = (email, password, isLogin, e) => {
     e.preventDefault();
-    auth({ email, password, isLogin });
+    authorization({ email, password, isLogin });
     setEmail('');
     setPassword('');
     setTouch(false);
@@ -132,9 +140,10 @@ export default function SignForm(props) {
           </Grid>
           {error && !touch ? (
             <Box p={1} className={classes.error} color="secondary.main">
-              {isLogin
+              {error}
+              {/* {isLogin
                 ? 'Пароль или логин неверны'
-                : 'Аккаунт с таким адресом электронной почты уже существует'}
+                : 'Аккаунт с таким адресом электронной почты уже существует'} */}
             </Box>
           ) : null}
           <Button
@@ -173,9 +182,9 @@ SignForm.propTypes = {
   linkName: PropTypes.string,
   link: PropTypes.string,
   isLogin: PropTypes.bool,
-  error: PropTypes.bool,
+  error: PropTypes.string,
   loading: PropTypes.bool,
-  auth: PropTypes.func
+  authorization: PropTypes.func
 };
 
 SignForm.defaultProps = {
@@ -183,7 +192,7 @@ SignForm.defaultProps = {
   linkName: 'linkName',
   link: '/',
   isLogin: false,
-  error: false,
+  error: '',
   loading: false,
-  auth: () => {}
+  authorization: () => {}
 };
