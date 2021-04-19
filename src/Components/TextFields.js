@@ -33,11 +33,9 @@ export default function TextFields({
   post
 }) {
   const classes = useStyles();
-  const [title, setTitle] = React.useState(post ? post.title : '');
-  const [discription, setDiscription] = React.useState(
-    post ? post.discription : ''
-  );
-  const [image, setImage] = React.useState(post ? post.image : null);
+  const [title, setTitle] = React.useState('');
+  const [discription, setDiscription] = React.useState('');
+  const [image, setImage] = React.useState(null);
 
   const date = Date.now();
   const author = localStorage.getItem('name');

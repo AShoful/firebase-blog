@@ -1,24 +1,25 @@
+/* eslint-disable react/prop-types */
 import React from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { Redirect } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { Redirect, useParams } from 'react-router-dom';
 
 import TextFields from '../Components/TextFields';
 
 import { fetchPatchItem, fetchItem } from '../store/actions/actionsPosts';
 
-const EditPostContainer = ({
-  getItem,
-  fetchPatchItem,
-  post,
-  postId,
-  loading
-}) => {
+const EditPostContainer = () => {
+  const dispatch = useDispatch();
+  const { id } = useParams();
+  const { loading } = useSelector((state) => state.app);
+  const post = useSelector((state) => state.posts).filter(
+    (post) => post.id === id
+  )[0];
+
   React.useEffect(() => {
-    if (!post.title) {
-      getItem(postId);
+    if (!post) {
+      dispatch(fetchItem(id));
     }
-  }, [getItem, post, postId]);
+  }, [post, id, dispatch]);
 
   const checkName = localStorage.getItem('name');
 
@@ -26,51 +27,12 @@ const EditPostContainer = ({
     <Redirect to="/" />
   ) : (
     <TextFields
-      handleSubmitFetch={fetchPatchItem}
+      handleSubmitFetch={(data, id) => dispatch(fetchPatchItem(data, id))}
       post={post}
-      postId={postId}
+      postId={id}
       loading={loading}
     />
   );
 };
 
-const mapStateToProps = (state, { match }) => {
-  return {
-    postId: match.params.id,
-    post: state.posts.items.filter((post) => post.id === match.params.id)[0],
-    loading: state.posts.loading
-  };
-};
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    fetchPatchItem: (data, id) => dispatch(fetchPatchItem(data, id)),
-    getItem: (id) => dispatch(fetchItem(id))
-  };
-};
-
-EditPostContainer.propTypes = {
-  fetchPatchItem: PropTypes.func,
-  getItem: PropTypes.func,
-  postId: PropTypes.string,
-  loading: PropTypes.bool,
-  post: PropTypes.shape({
-    title: PropTypes.string,
-    discription: PropTypes.string,
-    image: PropTypes.string
-  })
-};
-
-EditPostContainer.defaultProps = {
-  fetchPatchItem: () => {},
-  getItem: () => {},
-  postId: '',
-  loading: false,
-  post: {
-    title: '',
-    discription: '',
-    image: null
-  }
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(EditPostContainer);
+export default EditPostContainer;
