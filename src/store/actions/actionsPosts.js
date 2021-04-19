@@ -77,7 +77,7 @@ export function fetchRemoveItem(id) {
 export function removeItem(id) {
   return {
     type: FETCH_ITEM_REMOVE,
-    payload: id
+    id
   };
 }
 
